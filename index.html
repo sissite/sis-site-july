@@ -3,9 +3,213 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
   <title>SIS Carousel</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    html,
+    body {
+      margin: 0;
+      padding: 0;
+      background: transparent;
+      font-family: Arial, sans-serif;
+    }
+
+    .carousel {
+      position: relative;
+      width: 100%;
+      overflow: hidden;
+      background: white;
+    }
+
+    .slide {
+      display: none;
+      width: 100%;
+    }
+
+    .slide.active {
+      display: block;
+      animation: fade 0.7s ease-in-out;
+    }
+
+    .slide img {
+      display: block;
+      width: 100%;
+      height: auto;
+    }
+
+    .arrow {
+      position: absolute;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 42px;
+      height: 42px;
+      border: none;
+      border-radius: 50%;
+      background: rgba(34, 34, 64, 0.75);
+      color: white;
+      font-size: 24px;
+      cursor: pointer;
+      z-index: 10;
+    }
+
+    .arrow:hover {
+      background: rgba(34, 34, 64, 0.95);
+    }
+
+    .previous {
+      left: 12px;
+    }
+
+    .next {
+      right: 12px;
+    }
+
+    .dots {
+      position: absolute;
+      bottom: 12px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 8px;
+      z-index: 10;
+    }
+
+    .dot {
+      width: 11px;
+      height: 11px;
+      padding: 0;
+      border: 2px solid white;
+      border-radius: 50%;
+      background: rgba(34, 34, 64, 0.45);
+      cursor: pointer;
+    }
+
+    .dot.active {
+      background: white;
+    }
+
+    @keyframes fade {
+      from {
+        opacity: 0.35;
+      }
+
+      to {
+        opacity: 1;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .arrow {
+        width: 34px;
+        height: 34px;
+        font-size: 19px;
+      }
+
+      .previous {
+        left: 6px;
+      }
+
+      .next {
+        right: 6px;
+      }
+
+      .dots {
+        bottom: 7px;
+      }
+    }
+  </style>
 </head>
+
 <body>
-  <h1>The carousel is working!</h1>
+
+  <div class="carousel" id="carousel">
+
+    <div class="slide active">
+      <img src="banner1.png" alt="SIS announcement banner 1">
+    </div>
+
+    <div class="slide">
+      <img src="banner2.png" alt="SIS announcement banner 2">
+    </div>
+
+    <button class="arrow previous" type="button" aria-label="Previous slide">
+      &#10094;
+    </button>
+
+    <button class="arrow next" type="button" aria-label="Next slide">
+      &#10095;
+    </button>
+
+    <div class="dots" aria-label="Carousel navigation">
+      <button class="dot active" type="button" aria-label="Show slide 1"></button>
+      <button class="dot" type="button" aria-label="Show slide 2"></button>
+    </div>
+
+  </div>
+
+  <script>
+    const carousel = document.getElementById("carousel");
+    const slides = Array.from(document.querySelectorAll(".slide"));
+    const dots = Array.from(document.querySelectorAll(".dot"));
+    const previousButton = document.querySelector(".previous");
+    const nextButton = document.querySelector(".next");
+
+    let currentSlide = 0;
+    let timer;
+
+    function showSlide(index) {
+      currentSlide = (index + slides.length) % slides.length;
+
+      slides.forEach((slide, slideIndex) => {
+        slide.classList.toggle("active", slideIndex === currentSlide);
+      });
+
+      dots.forEach((dot, dotIndex) => {
+        dot.classList.toggle("active", dotIndex === currentSlide);
+      });
+    }
+
+    function startCarousel() {
+      clearInterval(timer);
+
+      timer = setInterval(() => {
+        showSlide(currentSlide + 1);
+      }, 5000);
+    }
+
+    previousButton.addEventListener("click", () => {
+      showSlide(currentSlide - 1);
+      startCarousel();
+    });
+
+    nextButton.addEventListener("click", () => {
+      showSlide(currentSlide + 1);
+      startCarousel();
+    });
+
+    dots.forEach((dot, index) => {
+      dot.addEventListener("click", () => {
+        showSlide(index);
+        startCarousel();
+      });
+    });
+
+    carousel.addEventListener("mouseenter", () => {
+      clearInterval(timer);
+    });
+
+    carousel.addEventListener("mouseleave", () => {
+      startCarousel();
+    });
+
+    showSlide(0);
+    startCarousel();
+  </script>
+
 </body>
 </html>
