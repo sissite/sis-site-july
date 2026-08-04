@@ -28,6 +28,7 @@
 
     .slide {
       display: none;
+      position: relative;
       width: 100%;
     }
 
@@ -93,6 +94,39 @@
       background: white;
     }
 
+    .slide-button {
+      position: absolute;
+      left: 50%;
+      transform: translateX(-50%);
+
+      display: inline-block;
+      padding: 12px 24px;
+
+      background: #222240;
+      color: white;
+      border: 2px solid white;
+      border-radius: 6px;
+
+      font-size: 17px;
+      font-weight: bold;
+      text-decoration: none;
+      white-space: nowrap;
+
+      box-shadow: 0 3px 8px rgba(0, 0, 0, 0.3);
+      z-index: 20;
+    }
+
+    .slide-button:hover,
+    .slide-button:focus {
+      background: #ff8210;
+      transform: translateX(-50%) scale(1.04);
+    }
+
+    .banner3-button {
+      top: 70%;
+      bottom: auto;
+    }
+
     @keyframes fade {
       from {
         opacity: 0.35;
@@ -121,50 +155,17 @@
       .dots {
         bottom: 7px;
       }
+
+      .slide-button {
+        padding: 8px 15px;
+        font-size: 13px;
+      }
+
+      .banner3-button {
+        top: 70%;
+        bottom: auto;
+      }
     }
-    .slide {
-  position: relative;
-}
-
-.slide-button {
-  position: absolute;
-  left: 50%;
-  bottom: 5%;
-  transform: translateX(-50%);
-
-  display: inline-block;
-  padding: 12px 24px;
-
-  background: #222240;
-  color: white;
-  border: 2px solid white;
-  border-radius: 6px;
-
-  font-size: 17px;
-  font-weight: bold;
-  text-decoration: none;
-
-  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.3);
-  z-index: 20;
-}
-
-.slide-button:hover,
-.slide-button:focus {
-  background: #ff8210;
-  transform: translateX(-50%) scale(1.04);
-}
-
-@media (max-width: 600px) {
-  .slide-button {
-    bottom: 14%;
-    padding: 8px 15px;
-    font-size: 13px;
-  }
-}
-  .banner3-button {
-  top: 70%;
-  bottom: auto;
-}
   </style>
 </head>
 
@@ -181,16 +182,18 @@
     </div>
 
     <div class="slide">
-  <img src="banner3.png" alt="SIS announcement banner 3">
+      <img src="banner3.png" alt="New secondary bell schedules announcement">
 
-  <a
-    class="slide-button banner3-button"
-    href="https://docs.google.com/document/d/17T9HaoIPAf1HZyC4o05NnhifAOLLatw_4QjNJ_PnVa0/edit?tab=t.97stoivjd3ys"
-    target="_blank"
-    rel="noopener noreferrer"
-    Navigating Student Schedules
-  </a>
-</div>
+      <a
+        class="slide-button banner3-button"
+        href="https://docs.google.com/document/d/17T9HaoIPAf1HZyC4o05NnhifAOLLatw_4QjNJ_PnVa0/edit?tab=t.97stoivjd3ys"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        Navigating Student Schedules
+      </a>
+    </div>
+
     <button class="arrow previous" type="button" aria-label="Previous slide">
       &#10094;
     </button>
